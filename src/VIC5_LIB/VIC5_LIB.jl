@@ -7,7 +7,14 @@ using CEnum
 path_proj(f...) = normpath(joinpath(@__DIR__, "../..", f...))
 libvic5 = path_proj("deps/win/libvic5_classic.dll")
 
+include("Constant.jl")
+include("Cenum.jl")
+include("DataType.jl")
+include("system.jl")
+include("Initialize.jl")
 include("vic_driver_classic.jl")
+
+
 
 
 # exports
