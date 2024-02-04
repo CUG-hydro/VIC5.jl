@@ -1,4 +1,4 @@
-struct option_struct
+mutable struct option_struct
   AboveTreelineVeg::Cshort
   AERO_RESIST_CANSNOW::Cushort
   BLOWING::Bool
@@ -20,21 +20,21 @@ struct option_struct
   IMPLICIT::Bool
   JULY_TAVG_SUPPLIED::Bool
   LAKES::Bool
-  Ncanopy::Csize_t
-  Nfrost::Csize_t
-  Nlakebasnode::Csize_t
-  Nlakenode::Csize_t
-  Nlayer::Csize_t
-  Nnode::Csize_t
+  Ncanopy::UInt64
+  Nfrost::UInt64
+  Nlakebasnode::UInt64
+  Nlakenode::UInt64
+  Nlayer::UInt64
+  Nnode::UInt64
   NOFLUX::Bool
-  NVEGTYPES::Csize_t
+  NVEGTYPES::UInt64
   RC_MODE::Cushort
-  ROOT_ZONES::Csize_t
+  ROOT_ZONES::UInt64
   QUICK_FLUX::Bool
   QUICK_SOLVE::Bool
   SHARE_LAYER_MOIST::Bool
   SNOW_DENSITY::Cushort
-  SNOW_BAND::Csize_t
+  SNOW_BAND::UInt64
   SPATIAL_FROST::Bool
   SPATIAL_SNOW::Bool
   TFALLBACK::Bool
@@ -56,20 +56,20 @@ struct option_struct
   INIT_STATE::Bool
   SAVE_STATE::Bool
   STATENAME_CESM::Bool
-  Noutstreams::Csize_t
+  Noutstreams::UInt64
 end
 
-struct global_param_struct
+mutable struct global_param_struct
   wind_h::Cdouble
   resolution::Cdouble
   dt::Cdouble
   snow_dt::Cdouble
   runoff_dt::Cdouble
   atmos_dt::Cdouble
-  model_steps_per_day::Csize_t
-  snow_steps_per_day::Csize_t
-  runoff_steps_per_day::Csize_t
-  atmos_steps_per_day::Csize_t
+  model_steps_per_day::UInt64
+  snow_steps_per_day::UInt64
+  runoff_steps_per_day::UInt64
+  atmos_steps_per_day::UInt64
   endday::Cushort
   endmonth::Cushort
   endyear::Cushort
@@ -79,7 +79,7 @@ struct global_param_struct
   forceoffset::NTuple{2,Cushort}
   forceskip::NTuple{2,Cuint}
   forceyear::NTuple{2,Cushort}
-  nrecs::Csize_t
+  nrecs::UInt64
   startday::Cushort
   startmonth::Cushort
   startsec::Cuint
@@ -94,7 +94,7 @@ struct global_param_struct
   time_origin_str::NTuple{2048,Cchar}
 end
 
-struct parameters_struct
+mutable struct parameters_struct
   LAPSE_RATE::Cdouble
   GAUGE_HEIGHT::Cdouble
   HUGE_RESIST::Cdouble
@@ -253,7 +253,7 @@ struct parameters_struct
   ROOT_BRENT_T::Cdouble
 end
 
-struct soil_con_struct
+mutable struct soil_con_struct
   FS_ACTIVE::Bool
   Ds::Cdouble
   Dsmax::Cdouble
@@ -317,7 +317,7 @@ struct soil_con_struct
   whoriz::Cdouble
 end
 
-struct veg_con_struct
+mutable struct veg_con_struct
   albedo::NTuple{12,Cdouble}
   CanopLayerBnd::Ptr{Cdouble}
   Cv::Cdouble
@@ -331,19 +331,19 @@ struct veg_con_struct
   roughness::NTuple{12,Cdouble}
   sigma_slope::Cdouble
   veg_class::Cint
-  vegetat_type_num::Csize_t
+  vegetat_type_num::UInt64
   Wdmax::NTuple{12,Cdouble}
   zone_depth::Ptr{Cdouble}
   zone_fract::Ptr{Cdouble}
 end
 
-struct veg_lib_struct
+mutable struct veg_lib_struct
   albedo::NTuple{12,Cdouble}
   displacement::NTuple{12,Cdouble}
   emissivity::NTuple{12,Cdouble}
   fcanopy::NTuple{12,Cdouble}
   LAI::NTuple{12,Cdouble}
-  NVegLibTypes::Csize_t
+  NVegLibTypes::UInt64
   overstory::Bool
   max_snow_albedo::Cdouble
   rad_atten::Cdouble
@@ -374,7 +374,7 @@ struct veg_hist_struct
   roughness::Ptr{Cdouble}
 end
 
-struct force_data_struct
+mutable struct force_data_struct
   air_temp::Ptr{Cdouble}
   Catm::Ptr{Cdouble}
   channel_in::Ptr{Cdouble}
@@ -395,12 +395,12 @@ struct force_data_struct
   wind::Ptr{Cdouble}
 end
 
-struct dmy_struct
-  day::Cushort
-  day_in_year::Cushort
-  month::Cushort
-  year::Cint
-  dayseconds::Cuint
+@with_kw mutable struct dmy_struct
+  day::Cushort = Cushort(1)
+  day_in_year::Cushort = Cushort(1)
+  month::Cushort = Cushort(1)
+  year::Cint = Cint(1961)
+  dayseconds::Cuint = Cuint(0)
 end
 
 struct layer_data_struct
@@ -450,8 +450,8 @@ struct energy_bal_struct
   kappa::NTuple{2,Cdouble}
   kappa_node::NTuple{50,Cdouble}
   moist::NTuple{50,Cdouble}
-  Nfrost::Csize_t
-  Nthaw::Csize_t
+  Nfrost::UInt64
+  Nthaw::UInt64
   T::NTuple{50,Cdouble}
   T_fbflag::NTuple{50,Bool}
   T_fbcount::NTuple{50,Cuint}
@@ -576,7 +576,7 @@ struct gridcell_avg_struct
 end
 
 struct lake_con_struct
-  numnod::Csize_t
+  numnod::UInt64
   z::NTuple{21,Cdouble}
   basin::NTuple{21,Cdouble}
   Cl::NTuple{21,Cdouble}
@@ -649,7 +649,7 @@ end
 
 
 struct force_type_struct
-  N_ELEM::Csize_t
+  N_ELEM::UInt64
   SIGNED::Bool
   SUPPLIED::Bool
   multiplier::Cdouble
@@ -659,11 +659,11 @@ end
 struct param_set_struct
   TYPE::NTuple{15,force_type_struct}
   FORCE_DT::NTuple{2,Cdouble}
-  force_steps_per_day::NTuple{2,Csize_t}
+  force_steps_per_day::NTuple{2,UInt64}
   FORCE_ENDIAN::NTuple{2,Cushort}
   FORCE_FORMAT::NTuple{2,Cint}
   FORCE_INDEX::NTuple{2,NTuple{15,Cint}}
-  N_TYPES::NTuple{2,Csize_t}
+  N_TYPES::NTuple{2,UInt64}
 end
 
 struct alarm_struct
@@ -676,8 +676,8 @@ struct alarm_struct
 end
 
 struct stream_struct
-  nvars::Csize_t
-  ngridcells::Csize_t
+  nvars::UInt64
+  ngridcells::UInt64
   time_bounds::NTuple{2,dmy_struct}
   prefix::NTuple{2048,Cchar}
   filename::NTuple{2048,Cchar}
@@ -708,14 +708,14 @@ struct metadata_struct
   standard_name::NTuple{2048,Cchar}
   units::NTuple{2048,Cchar}
   description::NTuple{2048,Cchar}
-  nelem::Csize_t
+  nelem::UInt64
 end
 
 struct Error_struct
   force::Ptr{force_data_struct}
   dt::Cdouble
   energy::Ptr{energy_bal_struct}
-  rec::Csize_t
+  rec::UInt64
   out_data::Ptr{Ptr{Cdouble}}
   output_streams::Ptr{stream_struct}
   snow::Ptr{snow_data_struct}
@@ -749,18 +749,34 @@ struct filep_struct
   logfile::Ptr{Libc.FILE}
 end
 
+# struct filenames_struct
+#   forcing::NTuple{2,NTuple{2048,Cchar}}
+#   f_path_pfx::NTuple{2,NTuple{2048,Cchar}}
+#   _global::NTuple{2048,Cchar}
+#   constants::NTuple{2048,Cchar}
+#   init_state::NTuple{2048,Cchar}
+#   lakeparam::NTuple{2048,Cchar}
+#   result_dir::NTuple{2048,Cchar}
+#   snowband::NTuple{2048,Cchar}
+#   soil::NTuple{2048,Cchar}
+#   statefile::NTuple{2048,Cchar}
+#   veg::NTuple{2048,Cchar}
+#   veglib::NTuple{2048,Cchar}
+#   log_path::NTuple{2048,Cchar}
+# end
+
 struct filenames_struct
-  forcing::NTuple{2,NTuple{2048,Cchar}}
-  f_path_pfx::NTuple{2,NTuple{2048,Cchar}}
-  _global::NTuple{2048,Cchar}
-  constants::NTuple{2048,Cchar}
-  init_state::NTuple{2048,Cchar}
-  lakeparam::NTuple{2048,Cchar}
-  result_dir::NTuple{2048,Cchar}
-  snowband::NTuple{2048,Cchar}
-  soil::NTuple{2048,Cchar}
-  statefile::NTuple{2048,Cchar}
-  veg::NTuple{2048,Cchar}
-  veglib::NTuple{2048,Cchar}
-  log_path::NTuple{2048,Cchar}
+  forcing::NTuple{2,Cstring}
+  f_path_pfx::NTuple{2,Cstring}
+  _global::Cstring
+  constants::Cstring
+  init_state::Cstring
+  lakeparam::Cstring
+  result_dir::Cstring
+  snowband::Cstring
+  soil::Cstring
+  statefile::Cstring
+  veg::Cstring
+  veglib::Cstring
+  log_path::Cstring
 end

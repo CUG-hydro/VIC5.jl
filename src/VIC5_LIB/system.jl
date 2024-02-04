@@ -40,14 +40,6 @@ function print_output_streams(outf)
   @ccall libvic5.print_output_streams(outf::Ptr{stream_struct})::Cvoid
 end
 
-function print_param_set(param_set)
-  @ccall libvic5.print_param_set(param_set::Ptr{param_set_struct})::Cvoid
-end
-
-function print_parameters(param)
-  @ccall libvic5.print_parameters(param::Ptr{parameters_struct})::Cvoid
-end
-
 function print_save_data(save)
   @ccall libvic5.print_save_data(save::Ptr{save_data_struct})::Cvoid
 end
@@ -76,10 +68,11 @@ function print_veg_var(vvar, ncanopy::Csize_t)
   @ccall libvic5.print_veg_var(vvar::Ptr{veg_var_struct}, ncanopy::Csize_t)::Cvoid
 end
 
-function print_version(arg1)
-  @ccall libvic5.print_version(arg1::Cstring)::Cvoid
-end
 
 function print_usage(arg1)
   @ccall libvic5.print_usage(arg1::Cstring)::Cvoid
+end
+
+function print_license()
+  @ccall libvic5.print_license()::Cvoid
 end

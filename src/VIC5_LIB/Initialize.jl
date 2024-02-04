@@ -1,9 +1,6 @@
-
 function get_parameters(paramfile)
   @ccall libvic5.get_parameters(paramfile::Ptr{Libc.FILE})::Cvoid
 end
-
-
 
 function initialize_global()
   @ccall libvic5.initialize_global()::Cvoid

@@ -25,9 +25,13 @@ end
 
 
 
-function calc_atmos_energy_bal(arg1::Cdouble, arg2::Cdouble, arg3::Cdouble, arg4::Cdouble, arg5::Cdouble, arg6::Cdouble, arg7::Cdouble, arg8::Cdouble, arg9::Cdouble, arg10::Cdouble, arg11::Cdouble, arg12::Cdouble, arg13::Cdouble, arg14, arg15, arg16, arg17, arg18, arg19, arg20, arg21)
+function calc_atmos_energy_bal(arg1::Cdouble, arg2::Cdouble, arg3::Cdouble, arg4::Cdouble, arg5::Cdouble, arg6::Cdouble, arg7::Cdouble, arg8::Cdouble, arg9::Cdouble, arg10::Cdouble, arg11::Cdouble, arg12::Cdouble, arg13::Cdouble, 
+  arg14, arg15, arg16, arg17, arg18, arg19, arg20, arg21)
+  
   @ccall libvic5.calc_atmos_energy_bal(arg1::Cdouble, arg2::Cdouble, arg3::Cdouble, arg4::Cdouble, arg5::Cdouble, arg6::Cdouble, arg7::Cdouble, arg8::Cdouble, arg9::Cdouble, arg10::Cdouble, arg11::Cdouble, arg12::Cdouble, arg13::Cdouble, arg14::Ptr{Cdouble}, arg15::Ptr{Cdouble}, arg16::Ptr{Cdouble}, arg17::Ptr{Cdouble}, arg18::Ptr{Cdouble}, arg19::Ptr{Cdouble}, arg20::Ptr{Bool}, arg21::Ptr{Cuint})::Cdouble
 end
+
+
 
 function calc_density(arg1::Cdouble)
   @ccall libvic5.calc_density(arg1::Cdouble)::Cdouble
@@ -722,6 +726,10 @@ function print_cell_data(cell, nlayers::Csize_t, nfrost::Csize_t)
   @ccall libvic5.print_cell_data(cell::Ptr{cell_data_struct}, nlayers::Csize_t, nfrost::Csize_t)::Cvoid
 end
 
+function print_dmy(dmy::dmy_struct)
+  @ccall libvic5.print_dmy(Ref(dmy)::Ptr{dmy_struct})::Cvoid
+end
+
 function print_dmy(dmy)
   @ccall libvic5.print_dmy(dmy::Ptr{dmy_struct})::Cvoid
 end
@@ -734,9 +742,6 @@ function print_force_type(force_type)
   @ccall libvic5.print_force_type(force_type::Ptr{force_type_struct})::Cvoid
 end
 
-function print_global_param(gp)
-  @ccall libvic5.print_global_param(gp::Ptr{global_param_struct})::Cvoid
-end
 
 function print_lake_con(lcon, nlnodes::Csize_t)
   @ccall libvic5.print_lake_con(lcon::Ptr{lake_con_struct}, nlnodes::Csize_t)::Cvoid
@@ -752,14 +757,6 @@ end
 
 function print_layer_data_fluxes(ldata)
   @ccall libvic5.print_layer_data_fluxes(ldata::Ptr{layer_data_struct})::Cvoid
-end
-
-function print_license()
-  @ccall libvic5.print_license()::Cvoid
-end
-
-function print_option(option)
-  @ccall libvic5.print_option(option::Ptr{option_struct})::Cvoid
 end
 
 
