@@ -12,6 +12,7 @@ VIC5_jll = "94ba42e8-eed2-5f02-b2e4-6e801937ed8b"
 
 [compat]
 CEnum = "0.5"
+Parameters = "0.12"
 Reexport = "1.2"
 UnsafePointers = "1"
 VIC5_jll = "0.1.1"
